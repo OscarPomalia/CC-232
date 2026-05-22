@@ -1,0 +1,9 @@
+build/
+build-asan/
+out/
+*.o
+*.obj
+*.a
+*.so
+*.exe
+*.log

@@ -1,0 +1,58 @@
+cmake_minimum_required(VERSION 3.20)
+project(Semana2 LANGUAGES CXX)
+include(CTest)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+add_library(sem2_headers INTERFACE)
+target_include_directories(sem2_headers INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_compile_features(sem2_headers INTERFACE cxx_std_17)
+
+function(cc232_link_math_if_needed target_name)
+  if(UNIX AND NOT APPLE)
+    target_link_libraries(${target_name} PRIVATE m)
+  endif()
+endfunction()
+
+function(cc232_add_sem2_target target_name source_file)
+  add_executable(${target_name} "${source_file}")
+  target_link_libraries(${target_name} PRIVATE sem2_headers)
+  cc232_link_math_if_needed(${target_name})
+endfunction()
+
+cc232_add_sem2_target(sem2_demo_arraystack "demos/demo_arraystack.cpp")
+cc232_add_sem2_target(sem2_demo_fastarraystack "demos/demo_fastarraystack.cpp")
+cc232_add_sem2_target(sem2_demo_rootisharraystack "demos/demo_rootisharraystack.cpp")
+cc232_add_sem2_target(sem2_demo_array_basico "demos/demo_array_basico.cpp")
+cc232_add_sem2_target(sem2_demo_arrayqueue "demos/demo_arrayqueue.cpp")
+cc232_add_sem2_target(sem2_demo_arraydeque "demos/demo_arraydeque.cpp")
+cc232_add_sem2_target(sem2_demo_dualarraydeque "demos/demo_dualarraydeque.cpp")
+cc232_add_sem2_target(sem2_demo_fastsqrt "demos/demo_fastsqrt.cpp")
+cc232_add_sem2_target(sem2_demo_capitulo2_panorama "demos/demo_capitulo2_panorama.cpp")
+cc232_add_sem2_target(sem2_demo_deng_vector "demos/demo_deng_vector.cpp")
+
+add_executable(sem2_demo_arraystack_explicado "demos/demo_arraystack_explicado.cpp")
+target_include_directories(sem2_demo_arraystack_explicado PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_compile_features(sem2_demo_arraystack_explicado PRIVATE cxx_std_17)
+
+add_executable(sem2_demo_rootisharraystack_explicado "demos/demo_rootisharraystack_explicado.cpp")
+target_include_directories(sem2_demo_rootisharraystack_explicado PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_compile_features(sem2_demo_rootisharraystack_explicado PRIVATE cxx_std_17)
+cc232_link_math_if_needed(sem2_demo_rootisharraystack_explicado)
+
+add_executable(sem2_demo_stl_vector_contraste "demos/demo_stl_vector_contraste.cpp")
+target_compile_features(sem2_demo_stl_vector_contraste PRIVATE cxx_std_17)
+
+cc232_add_sem2_target(sem2_test_public "pruebas_publicas/test_public_week2.cpp")
+cc232_add_sem2_target(sem2_test_internal "pruebas_internas/test_internal_week2.cpp")
+cc232_add_sem2_target(sem2_resize_stress "pruebas_internas/resize_stress_week2.cpp")
+cc232_add_sem2_target(sem2_test_public_cap2 "pruebas_publicas/test_public_capitulo2_extendido.cpp")
+cc232_add_sem2_target(sem2_test_internal_cap2 "pruebas_internas/test_internal_capitulo2_extendido.cpp")
+
+add_test(NAME semana2_public COMMAND sem2_test_public)
+add_test(NAME semana2_internal COMMAND sem2_test_internal)
+add_test(NAME semana2_resize_stress COMMAND sem2_resize_stress)
+add_test(NAME semana2_public_cap2 COMMAND sem2_test_public_cap2)
+add_test(NAME semana2_internal_cap2 COMMAND sem2_test_internal_cap2)
