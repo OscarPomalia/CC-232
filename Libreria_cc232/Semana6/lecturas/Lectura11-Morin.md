@@ -1,4 +1,4 @@
-### Lectura 11: Morin — Treaps, heaps y colas de prioridad
+### Lectura 11: Morin - Treaps, heaps y colas de prioridad
 
 ### Resumen
 
@@ -22,7 +22,7 @@ Esta lectura, por tanto, conecta tres ideas: búsqueda ordenada, prioridad y ale
 
 ### Desarrollo
 
-##### 1. Árboles binarios de búsqueda aleatorios
+#### 1. Árboles binarios de búsqueda aleatorios
 
 Un árbol binario de búsqueda puede tener formas muy distintas aun si almacena el mismo conjunto de claves. Morin ilustra esta diferencia con dos árboles que contienen los enteros `0, ..., 14`: uno degenerado, con altura `14`, y otro perfectamente balanceado, con altura `3`. La diferencia no está en los datos, sino en el orden de inserción.
 
