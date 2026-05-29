@@ -12,5 +12,5 @@ inline constexpr bool pqHasParent(std::size_t i) noexcept { return i > 0; }
 inline constexpr std::size_t pqLastInternal(std::size_t n) noexcept {
   return n == 0 ? 0 : pqParent(n - 1);
 }
-
+inline constexpr bool pqIsInternal(std::size_t i, std::size_t n return)
 }  // namespace ods
