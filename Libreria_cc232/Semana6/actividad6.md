@@ -33,3 +33,7 @@ Huffman_PQ.h
 Treap.h
 3. Capitulo6.h es el header principal de la semana 6, con los includes reales de las estructuras y demos de priority queues, heap, Huffman y Treap.
 Capitulo10.h es solo un alias de compatibilidad que incluye Capitulo6.h.
+
+bloque 2: 
+
+
