@@ -1,0 +1,11 @@
+build/
+cmake-build-*/
+bin/
+*.exe
+*.out
+*.o
+*.obj
+CMakeCache.txt
+CMakeFiles/
+__pycache__/
+.vscode/

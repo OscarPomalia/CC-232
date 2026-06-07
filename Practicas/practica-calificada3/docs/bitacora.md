@@ -1,0 +1,3 @@
+# Bitácora de Desarrollo - PC3
+
+- **07 de Junio:** Hoy revisé el problema asignado (Codeforces 817F). Me di cuenta de que las coordenadas $L$ y $R$ llegan hasta $10^{18}$, así que ni de broma puedo usar un arreglo normal porque el juez me va a botar un Memory Limit Exceeded de inmediato. Analizando las estructuras de las Semanas 5 y 6 de la librería `cc232`, la mejor salida que veo es implementar un Segment Tree (que funciona como un BST de rangos) y aplicarle *Lazy Propagation* para las consultas masivas. Por ahora dejé configurada la estructura de carpetas, el CMakeLists y el `.gitignore` para no subir basura de compilación al repo.
