@@ -10,19 +10,39 @@ namespace ods {
 
 template <class T, class Compare>
 std::size_t complHeapPercolateDown(std::vector<T>& a, std::size_t n, std::size_t i, Compare comp) {
-  while (pqInHeap(pqLeftChild(i), n)) {
-    std::size_t c = pqLeftChild(i);
-    const std::size_t r = pqRightChild(i);
-    if (pqInHeap(r, n) && comp(a[c], a[r])) {
-      c = r;
+    while (pqHasLeftChild(i, n)) {
+        std::size_t c = pqLeftChild(i);
+        const std::size_t r = pqRightChild(i);
+        if (pqHasRightChild(i, n) && comp(a[c], a[r])) {
+            c = r;
+        }
+        if (!comp(a[i], a[c])) {
+            break;
+        }
+        std::swap(a[i], a[c]);
+        i = c;
     }
-    if (!comp(a[i], a[c])) {
-      break;
-    }
-    std::swap(a[i], a[c]);
-    i = c;
-  }
-  return i;
+    return i;
 }
 
-}  // namespace ods
+// MOD-A6-B4: Conteo en percolateDown
+template <class T, class Compare>
+std::size_t complHeapPercolateDownCount(std::vector<T>& a, std::size_t n, std::size_t i, Compare comp) {
+    std::size_t swaps = 0;
+    while (pqHasLeftChild(i, n)) {
+        std::size_t c = pqLeftChild(i);
+        const std::size_t r = pqRightChild(i);
+        if (pqHasRightChild(i, n) && comp(a[c], a[r])) {
+            c = r;
+        }
+        if (!comp(a[i], a[c])) {
+            break;
+        }
+        std::swap(a[i], a[c]);
+        swaps++;
+        i = c;
+    }
+    return swaps;
+}
+
+} // namespace ods

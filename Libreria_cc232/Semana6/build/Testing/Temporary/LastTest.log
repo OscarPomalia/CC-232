@@ -1,0 +1,33 @@
+Start testing: Jun 07 15:31 Hora est. Pacífico, Sudamérica
+----------------------------------------------------------
+1/2 Testing: semana6_public
+1/2 Test: semana6_public
+Command: "C:/Users/pomal/OneDrive/Desktop/CC-232-main/Libreria_cc232/Semana6/build/sem6_test_public.exe"
+Directory: C:/Users/pomal/OneDrive/Desktop/CC-232-main/Libreria_cc232/Semana6/build
+"semana6_public" start time: Jun 07 15:31 Hora est. Pacífico, Sudamérica
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   1.70 sec
+----------------------------------------------------------
+Test Passed.
+"semana6_public" end time: Jun 07 15:31 Hora est. Pacífico, Sudamérica
+"semana6_public" time elapsed: 00:00:01
+----------------------------------------------------------
+
+2/2 Testing: semana6_internal
+2/2 Test: semana6_internal
+Command: "C:/Users/pomal/OneDrive/Desktop/CC-232-main/Libreria_cc232/Semana6/build/sem6_test_internal.exe"
+Directory: C:/Users/pomal/OneDrive/Desktop/CC-232-main/Libreria_cc232/Semana6/build
+"semana6_internal" start time: Jun 07 15:31 Hora est. Pacífico, Sudamérica
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.80 sec
+----------------------------------------------------------
+Test Passed.
+"semana6_internal" end time: Jun 07 15:31 Hora est. Pacífico, Sudamérica
+"semana6_internal" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Jun 07 15:31 Hora est. Pacífico, Sudamérica

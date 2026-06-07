@@ -42,14 +42,16 @@ struct HuffmanBuildStep {
   std::string rightLabel;
 };
 
+// MOD-A6-B9: Modificación de desempate explícito
 struct HuffmanLowerFrequencyFirst {
-  bool operator()(const std::shared_ptr<HuffmanNode>& a,
-                  const std::shared_ptr<HuffmanNode>& b) const {
-    if (a->frequency != b->frequency) {
-      return a->frequency > b->frequency;
+    bool operator()(const std::shared_ptr<HuffmanNode>& a, const std::shared_ptr<HuffmanNode>& b) const {
+        if (a->frequency == b->frequency) {
+            // Desempate por orden alfabético para garantizar un árbol determinista.
+            // Como el heap extrae el "máximo" según el comparador, invertimos para que la letra menor (ej. 'A') suba.
+            return a->symbol > b->symbol; 
+        }
+        return a->frequency > b->frequency;
     }
-    return a->symbol > b->symbol;
-  }
 };
 
 inline std::string huffmanNodeLabel(const std::shared_ptr<HuffmanNode>& u) {
@@ -123,16 +125,19 @@ inline std::vector<HuffmanBuildStep> huffmanBuildTraceLeftHeap(
   return huffmanBuildTraceWith<PQType>(alphabet);
 }
 
-inline void huffmanCollectCodes(const std::shared_ptr<HuffmanNode>& u,
-                                const std::string& prefix,
+// MOD-A6-B9: Manejo explícito del caso extremo de un solo símbolo
+inline void huffmanCollectCodes(const std::shared_ptr<HuffmanNode>& u, 
+                                const std::string& prefix, 
                                 std::unordered_map<char, std::string>& out) {
-  if (!u) return;
-  if (u->leaf()) {
-    out[u->symbol] = prefix.empty() ? "0" : prefix;
-    return;
-  }
-  huffmanCollectCodes(u->left, prefix + "0", out);
-  huffmanCollectCodes(u->right, prefix + "1", out);
+    if (!u) return;
+    if (u->leaf()) {
+        // Si el prefijo está vacío al llegar a una hoja, significa que el árbol tiene solo 1 nodo (raíz = hoja).
+        // Le asignamos obligatoriamente un bit (ej. "0") para tener un código válido.
+        out[u->symbol] = prefix.empty() ? "0" : prefix;
+        return;
+    }
+    huffmanCollectCodes(u->left, prefix + "0", out);
+    huffmanCollectCodes(u->right, prefix + "1", out);
 }
 
 template <class PriorityQueue>

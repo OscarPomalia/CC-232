@@ -209,6 +209,39 @@ class Treap {
       if (root_ == u) root_ = u->parent;
     }
   }
+  // MOD-A6-B10: Instrumentación de Treap corregida (lógica consistente)
+    std::size_t bubbleUpCount(Node* u) {
+        std::size_t rotations = 0;
+        // Corregido: La condición debe coincidir con la de bubbleUp (Min-Heap)
+        while (u->parent && u->parent->priority > u->priority) {
+            if (u->isRightChild()) {
+                rotateLeft(u->parent);
+            } else {
+                rotateRight(u->parent);
+            }
+            rotations++;
+        }
+        if (!u->parent) root_ = u;
+        return rotations;
+    }
+
+    std::size_t trickleDownCount(Node* u) {
+        std::size_t rotations = 0;
+        while (u->left || u->right) {
+            if (!u->left) {
+                rotateLeft(u);
+            } else if (!u->right) {
+                rotateRight(u);
+            } else if (u->left->priority < u->right->priority) {
+                // Corregido: Coincide con la lógica de trickleDown original
+                rotateRight(u); 
+            } else {
+                rotateLeft(u);
+            }
+            rotations++;
+        }
+        return rotations;
+    }
 
   std::vector<T> inorderKeys() const {
     std::vector<T> out;

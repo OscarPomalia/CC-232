@@ -163,6 +163,30 @@ class PQ_LeftHeap : public PQ<T> {
     clear(u->right);
     delete u;
   }
+  // MOD-A6-B8: Validación Leftist Heap
+    bool isValidLeftHeap() const {
+        std::size_t countedSize = 0;
+        bool valid = isValidLeftHeapHelper(root_, countedSize);
+        return valid && (countedSize == n_);
+    }
+
+    bool isValidLeftHeapHelper(Node* u, std::size_t& count) const {
+        if (!u) return true; // ESTO ES VITAL: Caso base para recursión
+        count++; 
+
+        // 1. Validar Propiedad de Heap
+        if (u->left && comp_(u->value, u->left->value)) return false;
+        if (u->right && comp_(u->value, u->right->value)) return false;
+
+        // 2 y 4. Validar Propiedad Izquierdista y consistencia del NPL
+        int nplL = u->left ? u->left->npl : 0;
+        int nplR = u->right ? u->right->npl : 0;
+        
+        if (nplL < nplR) return false;
+        if (u->npl != nplR + 1) return false;
+
+        return isValidLeftHeapHelper(u->left, count) && isValidLeftHeapHelper(u->right, count);
+    }
 };
 
 }  // namespace ods
