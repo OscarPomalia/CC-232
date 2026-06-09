@@ -13,3 +13,10 @@
   2. *Invariante de prioridad (Heap):* La prioridad de un nodo padre es siempre menor o igual a la de sus hijos, garantizando altura logarítmica esperada.
 * **Mecánica agregada:** Implementación de las funciones de soporte `rotateLeft`, `rotateRight` y control de memoria `clear`.
 * **Próximo paso (Día 3):** Implementar la lógica para dividir (split) y fusionar (merge) intervalos cuando una consulta interseca parcialmente un nodo.
+
+## Día 3: Lógica de Fusión Disjunta e Inserción
+* **Avance técnico:** Implementación de `addInterval`, `lowerBound`, `successor` y mantenimiento del Treap (`bubbleUp`, `trickleDown`, `insertNode`, `removeNode`).
+* **Justificación de la lógica (Codeforces 817F):** Para evitar la actualización punto por punto (que daría TLE con $10^{18}$), la función `addInterval(L, R)` busca todos los nodos existentes que se solapen o sean adyacentes al nuevo rango usando `lowerBound(L - 1)`. 
+  Dos intervalos `[a,b]` y `[c,d]` se tocan/solapan si `max(a,c) <= min(b,d) + 1`. Si hay choque, el algoritmo elimina los nodos viejos, absorbe sus límites (`newL`, `newR`) e inserta un único gran intervalo fusionado.
+* **Invariante protegido:** Esto garantiza que el Treap solo contenga intervalos 100% disjuntos y ordenados.
+* **Próximo paso (Día 4):** Implementar la lógica inversa (`removeInterval`) cortando los nodos que se solapen, la función `invertInterval` y el cálculo del `MEX`.
