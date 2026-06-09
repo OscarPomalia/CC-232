@@ -1,3 +1,15 @@
 # Bitácora de Desarrollo - PC3
 
-- **07 de Junio:** Hoy revisé el problema asignado (Codeforces 817F). Me di cuenta de que las coordenadas $L$ y $R$ llegan hasta $10^{18}$, así que ni de broma puedo usar un arreglo normal porque el juez me va a botar un Memory Limit Exceeded de inmediato. Analizando las estructuras de las Semanas 5 y 6 de la librería `cc232`, la mejor salida que veo es implementar un Segment Tree (que funciona como un BST de rangos) y aplicarle *Lazy Propagation* para las consultas masivas. Por ahora dejé configurada la estructura de carpetas, el CMakeLists y el `.gitignore` para no subir basura de compilación al repo.
+## Día 1: Análisis y Configuración Inicial
+* **Problema asignado:** Codeforces 817F - MEX Queries.
+* **Análisis:** El problema requiere actualizar rangos masivos (hasta $10^{18}$) y consultar el menor entero ausente (MEX). Actualizar elemento por elemento causará TLE.
+* **Decisión técnica:** Utilizaré una adaptación de la estructura `Treap` (Semana 6) combinada con conceptos de `BST` (Semana 5). Cada nodo representará un intervalo disjunto `[L, R]` de números presentes.
+* **Avance:** Configuración de carpetas (`include`, `src`, `docs`) y creación del archivo CMakeLists.txt inicial.
+
+## Día 2: Diseño de Estructura e Invariantes
+* **Avance técnico:** Creación del archivo `include/IntervalTreap.h`. Se definió el esqueleto de la clase `IntervalTreap` y su `Node`.
+* **Invariantes definidos:**
+  1. *Invariante de búsqueda (BST):* El límite superior (`r`) de cualquier intervalo en el subárbol izquierdo es estrictamente menor al límite inferior (`l`) del nodo actual. No hay solapamientos.
+  2. *Invariante de prioridad (Heap):* La prioridad de un nodo padre es siempre menor o igual a la de sus hijos, garantizando altura logarítmica esperada.
+* **Mecánica agregada:** Implementación de las funciones de soporte `rotateLeft`, `rotateRight` y control de memoria `clear`.
+* **Próximo paso (Día 3):** Implementar la lógica para dividir (split) y fusionar (merge) intervalos cuando una consulta interseca parcialmente un nodo.
