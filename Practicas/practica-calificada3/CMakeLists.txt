@@ -1,10 +1,14 @@
 cmake_minimum_required(VERSION 3.10)
-project(PC3_MEX_Queries)
+project(PC3_CC232)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Incluir la carpeta de cabeceras
+# Le decimos al compilador dónde buscar los .h
 include_directories(include)
 
-# Agregaremos el ejecutable en el dia 5 cuando tengamos el main
+# Generamos el ejecutable principal
+add_executable(pc3_main src/main.cpp)
+
+# Habilitamos la herramienta de pruebas (ctest) que pide la rúbrica
+enable_testing()

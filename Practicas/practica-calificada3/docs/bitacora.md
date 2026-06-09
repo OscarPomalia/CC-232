@@ -20,3 +20,4 @@
   Dos intervalos `[a,b]` y `[c,d]` se tocan/solapan si `max(a,c) <= min(b,d) + 1`. Si hay choque, el algoritmo elimina los nodos viejos, absorbe sus límites (`newL`, `newR`) e inserta un único gran intervalo fusionado.
 * **Invariante protegido:** Esto garantiza que el Treap solo contenga intervalos 100% disjuntos y ordenados.
 * **Próximo paso (Día 4):** Implementar la lógica inversa (`removeInterval`) cortando los nodos que se solapen, la función `invertInterval` y el cálculo del `MEX`.
+* **Infraestructura:** Se añadió el `CMakeLists.txt`, el `src/main.cpp` y el `README.md` oficial para cumplir con la estructura de proyecto requerida y permitir la compilación con CMake.
