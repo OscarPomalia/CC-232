@@ -1,0 +1,16 @@
+Evidencia de Casos Borde - CF 817F
+
+1. Caso Borde: Estructura Vacía
+- Operación: Consultar MEX sin haber insertado nada.
+- Salida obtenida: 1.
+- Validación: El método getMEX() previene null pointers y retorna 1 si root_ es nulo.
+
+2. Caso Borde: Rango Masivo (Límites de Codeforces)
+- Operación: Añadir intervalo [1, 1000000000000000000] (10^18).
+- Salida obtenida: 1000000000000000001.
+- Validación: El Treap fusiona todo en un solo nodo O(1) nodos, previniendo TLE y MLE.
+
+3. Caso Borde: Inversión sobre solapamientos parciales
+- Operación: Añadir [1, 10], luego Invertir [5, 15].
+- Explicación: El rango [1, 4] debe quedar en 1. El [5, 10] a 0. El [11, 15] a 1.
+- Salida de MEX obtenida: 5 (el primer hueco después de 4).

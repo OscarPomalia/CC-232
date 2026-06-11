@@ -1,0 +1,14 @@
+Evidencia de Pruebas y Validación del Invariante - Treap Disjunto
+
+- Prueba 1 (Fusión Adyacente): 
+  Entrada: Añadir [1, 5], Añadir [6, 10].
+  Comportamiento interno: lowerBound detecta adyacencia.
+  Salida: Se fusionan en [1, 10]. MEX = 11.
+
+- Prueba 2 (Duplicados y absorción): 
+  Entrada: Añadir [2, 8], Añadir [4, 6].
+  Comportamiento interno: El segundo rango es absorbido completamente al estar contenido en el primero.
+  Salida: MEX = 1 (ya que el 1 sigue libre).
+
+- Prueba de Invariante: 
+  Se validó que las operaciones de split/merge conservan el invariante estricto de no-solapamiento (max(a,c) > min(b,d) + 1 para cualquier par de nodos).

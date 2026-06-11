@@ -11,8 +11,6 @@ Aprovechando la propiedad de BST del Treap, se busca el nodo más a la izquierda
 **3. ¿Qué caso rompe una solución que actualiza punto por punto?**
 El límite de las consultas donde $L, R \le 10^{18}$. Actualizar un tramo tan masivo iterando punto por punto causaría *Time Limit Exceeded* (TLE) y *Memory Limit Exceeded* (MLE) inmediatamente.
 
----
-
 ## 11. Preguntas comunes obligatorias
 
 **1. ¿Cuál es el problema exacto asignado?**

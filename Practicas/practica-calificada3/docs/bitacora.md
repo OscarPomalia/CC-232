@@ -21,3 +21,13 @@
 * **Invariante protegido:** Esto garantiza que el Treap solo contenga intervalos 100% disjuntos y ordenados.
 * **Próximo paso (Día 4):** Implementar la lógica inversa (`removeInterval`) cortando los nodos que se solapen, la función `invertInterval` y el cálculo del `MEX`.
 * **Infraestructura:** Se añadió el `CMakeLists.txt`, el `src/main.cpp` y el `README.md` oficial para cumplir con la estructura de proyecto requerida y permitir la compilación con CMake.
+
+## Día 4: Lógica de recortes (Split), inversión y MEX
+* **Avance técnico:** Implementación segura de `removeInterval` e `invertInterval`. Creación de `getMEX()`.
+* **Solución de bugs preventivos:** Para evitar iteradores huérfanos/inválidos durante el recorrido con `successor`, modifiqué las funciones para que usen arreglos intermedios (`std::vector<Node*> toRemove`). Primero se identifica toda el área de colisión y solo después se aplica `removeNode` y `insertNode`.
+* **Cumplimiento de Rúbrica:** Creación de `docs/respuestas_obligatorias.md` con justificación teórica y `src/main.cpp` conectado para validación.
+
+## Día 5: Evidencias, Pruebas Finales y Preparación del Video
+* **Avance:** Creación de la carpeta `resultados/` con pruebas locales, casos borde y logs de ejecución limpia como evidencia reproducible. El archivo `.gitignore` ya estaba configurado para proteger el repositorio de binarios.
+* **Validaciones finales:** Se verificó que el proyecto compila desde cero (`cmake -S . -B build`) sin depender de cachés anteriores ni ejecutables precompilados.
+* **Preparación del Reto Grabado:** Se planificó la modificación en vivo exigida por la rúbrica. Modificaremos el código añadiendo una función para imprimir el estado interno del Treap (reto transversal) y así poder demostrar visualmente las operaciones que fusionan e invierten intervalos (reto específico de CF 817F).

@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <cstdint>
 #include <random>
+#include <vector>
+#include <utility>
 
 namespace ods {
 
@@ -24,35 +26,77 @@ public:
     };
 
     IntervalTreap() : rng_(232) {}
-
     ~IntervalTreap() { clear(root_); }
 
-    // --- Operación 1: Añadir un intervalo (Fusionando solapamientos) ---
+    // --- Operación 1: Añadir (Poner a 1) ---
     void addInterval(T L, T R) {
-        T newL = L;
-        T newR = R;
-
-        // 1. Encontrar y eliminar todos los intervalos que se solapan o tocan con [L, R]
-        // Dos intervalos [a,b] y [c,d] se tocan/solapan si: max(a,c) <= min(b,d) + 1
+        T newL = L, newR = R;
         Node* u = lowerBound(newL - 1);
+        std::vector<Node*> toRemove;
+
+        // Recolectamos solapamientos o adyacencias
         while (u != nullptr && u->l <= newR + 1) {
-            // Expandimos nuestros límites para absorber al nodo existente
             newL = std::min(newL, u->l);
             newR = std::max(newR, u->r);
-            
-            // Eliminamos el nodo viejo
-            Node* next = successor(u);
-            removeNode(u);
-            u = next;
+            toRemove.push_back(u);
+            u = successor(u);
         }
 
-        // 2. Insertamos el nuevo gran intervalo fusionado
+        for (Node* n : toRemove) removeNode(n);
         insertNode(new Node(newL, newR, nextPriority()));
     }
 
-    void removeInterval(T L, T R) {} // TODO: Día 4
-    void invertInterval(T L, T R) {} // TODO: Día 4
-    T getMEX() const { return 1; }   // TODO: Día 4
+    // --- Operación 2: Remover (Poner a 0) ---
+    void removeInterval(T L, T R) {
+        Node* u = lowerBound(L);
+        std::vector<Node*> toRemove;
+        std::vector<std::pair<T, T>> toAdd;
+
+        // Recolectamos nodos afectados y calculamos los recortes (splits)
+        while (u != nullptr && u->l <= R) {
+            toRemove.push_back(u);
+            if (u->l < L) toAdd.push_back({u->l, L - 1}); // Parte izquierda que sobrevive
+            if (u->r > R) toAdd.push_back({R + 1, u->r}); // Parte derecha que sobrevive
+            u = successor(u);
+        }
+
+        for (Node* n : toRemove) removeNode(n);
+        for (auto& p : toAdd) insertNode(new Node(p.first, p.second, nextPriority()));
+    }
+
+    // --- Operación 3: Invertir (0s a 1s y 1s a 0s) ---
+    void invertInterval(T L, T R) {
+        Node* u = lowerBound(L);
+        std::vector<std::pair<T, T>> newOnes;
+        T currentL = L;
+
+        // Detectamos los "huecos" (ceros) que ahora serán unos
+        while (u != nullptr && u->l <= R) {
+            if (currentL < u->l) {
+                newOnes.push_back({currentL, u->l - 1});
+            }
+            currentL = std::max(currentL, u->r + 1);
+            u = successor(u);
+        }
+        if (currentL <= R) {
+            newOnes.push_back({currentL, R});
+        }
+
+        // Primero borramos todos los 1s en el rango, luego insertamos los nuevos 1s
+        removeInterval(L, R);
+        for (auto& p : newOnes) addInterval(p.first, p.second);
+    }
+
+    // --- Consulta: Menor entero positivo ausente (MEX) ---
+    T getMEX() const {
+        if (!root_) return 1;
+        Node* u = root_;
+        while (u->left) u = u->left; // Nodo con el valor mínimo
+        
+        // Si el primer bloque contiene al 1, el MEX es el primer número libre a su derecha
+        if (u->l <= 1) return u->r + 1;
+        return 1;
+    }
 
     bool empty() const { return root_ == nullptr; }
 
@@ -68,14 +112,13 @@ private:
         delete u;
     }
 
-    // --- Búsquedas (Semanas 5 y 6) ---
     Node* lowerBound(T v) const {
         Node* w = root_;
         Node* candidate = nullptr;
         while (w != nullptr) {
             if (w->r >= v) {
                 candidate = w;
-                w = w->left; // Buscamos uno más a la izquierda que también cumpla
+                w = w->left;
             } else {
                 w = w->right;
             }
@@ -93,10 +136,9 @@ private:
         return u->parent;
     }
 
-    // --- Inserción y Borrado base de Treap ---
     void insertNode(Node* u) {
         if (!root_) {
-            root_ = root_ = u;
+            root_ = u;
             return;
         }
         Node* w = root_;
@@ -125,7 +167,6 @@ private:
         delete u;
     }
 
-    // --- Rotaciones y Mantenimiento del Heap ---
     void rotateLeft(Node* u) {
         if (!u || !u->right) return;
         Node* w = u->right;

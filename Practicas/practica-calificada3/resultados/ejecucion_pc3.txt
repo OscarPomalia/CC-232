@@ -1,0 +1,21 @@
+Evidencia de compilación y ejecución desde copia limpia:
+
+PS C:\Practicas\practica-calificada3> cmake -S . -B build
+-- Building for: Ninja
+-- The CXX compiler identification is GNU
+-- Configuring done
+-- Generating done
+-- Build files have been written to: build
+
+PS C:\Practicas\practica-calificada3> cmake --build build
+[2/2] Linking CXX executable pc3_main.exe
+
+PS C:\Practicas\practica-calificada3> ./build/pc3_main.exe
+3
+1 1 5
+3 2 7
+2 1 2
+(Salidas obtenidas en consola)
+6
+2
+1
