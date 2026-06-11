@@ -6,6 +6,8 @@
 
 - **Código:** 20240385I
 
+- **Enlace del Video de Sustentación:** https://www.youtube.com/watch?v=GvC4L4pNIOQ
+
 - **Problema asignado:** Codeforces 817F - MEX Queries
 
 - **Enlace oficial:** [https://codeforces.com/problemset/problem/817/F](https://codeforces.com/problemset/problem/817/F)
@@ -14,7 +16,7 @@
 
 - **CSV oficial:** [https://github.com/kapumota/CC-232/blob/main/Practicas/Practica3_CC232/Problemas-Evaluacion3.csv](https://github.com/kapumota/CC-232/blob/main/Practicas/Practica3_CC232/Problemas-Evaluacion3.csv)
 
-#### Relación con Semanas 4-6
+#### Relación con Semanas 4-6 y Estructura usada
 
 - **Semana principal:** Semanas 5 y 6
 
@@ -77,6 +79,16 @@ Indica el comando exacto para ejecutar el programa principal:
 ./build/pc3_main.exe
 ```
 
+#### Casos borde
+
+Los casos borde están previstos y documentados en nuestros archivos de resultados para garantizar la solidez de la estructura. Los principales evaluados son:
+
+1. **Estructura vacía (Ausencia de respuesta):** Prevención de *Null Pointers* al consultar el MEX sin inserciones previas, retornando 1 de forma segura.
+
+2. **Intervalos masivos límite:** Operaciones con rangos máximos hasta $10^{18}$, procesados dinámicamente en tiempo logarítmico para evitar el *Time Limit Exceeded*.
+
+3. **Inversiones sobre solapamientos parciales:** Operaciones de partición múltiple (*splits*) que dividen un nodo en bloques disjuntos manteniendo el invariante de orden.
+
 #### Pruebas
 
 **Justificación sobre ctest:** Tal como permite explícitamente la rúbrica, se optó por no usar `ctest` automatizado y, en su lugar, ofrecer pruebas interactivas manuales y documentadas de forma reproducible en la carpeta `resultados/`. Esta decisión se tomó para poder visualizar el estado interno de los nodos del Treap y la evolución del MEX paso a paso durante la modificación grabada en la sustentación en video.
@@ -111,7 +123,7 @@ Se diseñaron e integraron al menos 5 pruebas detalladas (documentadas en `resul
    * **entrada usada:** Operación masiva en el límite de Codeforces añadiendo el rango `[1, 1000000000000000000]`.
    * **salida esperada:** `1000000000000000001`
    * **salida obtenida:** `1000000000000000001`
-   * **qué aspecto valida:** El Treap procesa un rango masivo en tiempo $O(1)$ amortizado creando un solo nodo, previniendo el Time Limit Exceeded (TLE) y Memory Limit Exceeded (MLE) que sufriría irremediablemente una solución ingenua.
+   * **qué aspecto valida:** El Treap procesa un rango masivo en tiempo $O(1)$ amortizado creando un solo nodo, previniendo el Time Limit Exceeded (TLE) y Memory Limit Exceeded (MLE) que sufriría irremediablemente una solución ingenua iterativa.
 
 #### Evidencia Git
 
