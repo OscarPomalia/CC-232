@@ -19,8 +19,9 @@ int main() {
         std::cout << "maxLoad=" << maxLoad
                   << " capacity=" << t.capacity()
                   << " load=" << t.loadFactor()
-                  << " maxProbe=" << t.stats().maxProbeLength
-                  << " avgProbe=" << t.stats().averageProbeLength()
+                  << " avgProbe=" << t.stats().averageProbeLength() << " ";
+        ods::printHashStats(std::cout, t.stats());
+        std::cout
                   << " time_us=" << us << "\n";
     }
 }

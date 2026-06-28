@@ -47,4 +47,13 @@ inline std::ostream& operator<<(std::ostream& os, const HashStats& s) {
     return os;
 }
 
+// MOD-A8: reporte uniforme de métricas para demos y pruebas.
+inline void printHashStats(std::ostream& os, const HashStats& s) {
+    os << "collisions=" << s.collisions
+       << " probes=" << s.totalProbes
+       << " maxProbe=" << s.maxProbeLength
+       << " rehashes=" << s.rehashes
+       << " tombstones=" << s.tombstones;
+}
+
 }  // namespace ods
